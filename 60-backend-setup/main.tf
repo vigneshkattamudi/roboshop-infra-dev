@@ -49,7 +49,58 @@ resource "terraform_data" "catalogue" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/bootstrap.sh",
-      "sudo sh /tmp/bootstrap.sh catalogue"
+      "sudo sh /tmp/bootstrap.sh catalogue ${var.environment}"
     ]
+  }
+}
+
+resource "aws_ec2_instance_state" "catalogue" {
+  instance_id = aws_instance.catalogue.id
+  state       = "stopped"
+  depends_on = [terraform_data.catalogue]
+}
+
+resource "aws_ami_from_instance" "catalogue" {
+  name               = "${var.project}-${var.environment}-catalogue"
+  source_instance_id = aws_instance.catalogue.id
+  depends_on = [aws_ec2_instance_state.catalogue]
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "${var.project}-${var.environment}-catalogue"
+    }
+  )
+}
+
+resource "terraform_data" "catalogue_delete" {
+  triggers_replace = [
+    aws_instance.catalogue.id
+  ]
+  
+  # make sure you have aws configure in your laptop
+  provisioner "local-exec" {
+    command = "aws ec2 terminate-instances --instance-ids ${aws_instance.catalogue.id}"
+  }
+
+  depends_on = [aws_ami_from_instance.catalogue]
+}
+
+resource "aws_launch_template" "catalogue" {
+  name = "${var.project}-${var.environment}-catalogue"
+
+  image_id = aws_ami_from_instance.catalogue.id
+  instance_initiated_shutdown_behavior = "terminate"
+  instance_type = "t3.micro"
+  vpc_security_group_ids = [local.catalogue_sg_id]
+  update_default_version = true # each time you update, new version will become default
+  tag_specifications {
+    resource_type = "instance"
+    # EC2 tags created by ASG
+    tags = merge(
+      local.common_tags,
+      {
+        Name = "${var.project}-${var.environment}-catalogue"
+      }
+    )
   }
 }
