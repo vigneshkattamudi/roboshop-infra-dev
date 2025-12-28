@@ -70,7 +70,15 @@ variable "rabbitmq_description" {
   default = "created sg for roboshop-dev-rabbitmq"
 }
 
-variable "mongodb_ports" {
+variable "catalogue_name" {
+  default = "catalogue"
+}
+
+variable "catalogue_description" {
+  default = "created sg for roboshop-dev-catalogue"
+}
+
+variable "mongodb_ports_vpn" {
   default = [22, 27017]
 }
 
