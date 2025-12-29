@@ -1,1 +1,3 @@
-![alt text](0e18db0d-f511-4f85-bb58-388fce70d42e_2631x2103.jpg)
+# Roboshop VM Architecture
+
+![alt text](roboshop-infra-dev.svg")
