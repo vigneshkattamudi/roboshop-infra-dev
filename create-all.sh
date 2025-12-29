@@ -9,13 +9,13 @@ modules=(
   # "10-sg"              # Depends on VPC
   # "20-bastion"
   #"30-vpn"             # Depends on SGs & VPC
-  "40-databases"       # Depends on SGs & subnets
+  #"40-databases"       # Depends on SGs & subnets
   # "50-backend-alb"     # Backend ALB
   # "60-acm"             # ACM certificates (for ALBs)
   # "70-frontend-alb"    # Frontend ALB (depends on ACM)
-  "60-catalogue"       # Backend service
+  #"60-catalogue"       # Backend service
   #"80-user"   # Backend service
-  #"90-components"
+  "90-components"
   
   
 )
