@@ -10,7 +10,7 @@ modules=(
   "30-vpn"            # Depends on SGs & VPC
   "40-databases"      # Depends on SGs & subnets
   "50-backend-alb"    # Depends on SGs & VPC
-  "60-backend-setup"  # Depends on ALB & backend infra
+  "60-catalogue"  # Depends on ALB & backend infra
 )
 
 # Loop through each directory and apply Terraform resources
