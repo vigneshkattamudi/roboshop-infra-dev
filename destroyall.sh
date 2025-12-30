@@ -12,7 +12,7 @@ modules=(
   # "60-acm"             # ACM certificates (for ALBs)
   # "50-backend-alb"   # Depends on SGs & VPC
   "40-databases"     # Depends on SGs & subnets
-  #"30-vpn"           # Depends on SGs & VPC
+  # "30-vpn"           # Depends on SGs & VPC
   # "10-sg"            # Security groups depend on VPC
   # "20-bastion"
   # "00-vpc"           # VPC last
