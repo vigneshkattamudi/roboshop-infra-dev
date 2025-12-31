@@ -1,13 +1,13 @@
 resource "aws_cloudfront_distribution" "roboshop" {
   origin {
-    domain_name = "dev.${var.zone_name}"
+    domain_name = "dev.dsops84.space"
     custom_origin_config  {
         http_port              = 80 // Required to be set but not used
         https_port             = 443
         origin_protocol_policy = "https-only"
         origin_ssl_protocols   = ["TLSv1.2"]
     }
-    origin_id                = "dev.${var.zone_name}"
+    origin_id                = "cdn.${var.zone_name}"
   }
 
   enabled             = true
