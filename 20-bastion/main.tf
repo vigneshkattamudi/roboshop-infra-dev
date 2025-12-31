@@ -3,9 +3,16 @@ resource "aws_instance" "bastion" {
   instance_type          = var.instance_type
   vpc_security_group_ids = [local.bastion_sg_id]
   subnet_id              = local.public_subnet_id
-  iam_instance_profile = "EC2RoleToBastion"
-  user_data = file("userdata.sh")
+  
+ 
+  # need more for terraform
+  root_block_device {
+    volume_size = 50
+    volume_type = "gp3" # or "gp2", depending on your preference
+  }
 
+  user_data = file("userdata.sh")
+   iam_instance_profile = "EC2RoleToBastion" # No need aws configure
   tags = merge(
     local.common_tags,
     {
