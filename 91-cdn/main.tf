@@ -12,7 +12,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
 
   enabled             = true
 
-  aliases = ["cdn.daws84s.site"]
+  aliases = ["cdn.dsops84.space"]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -58,7 +58,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
 
 resource "aws_route53_record" "cdn" {
   zone_id = var.zone_id
-  name    = "cdn.${var.zone_name}" #cdn.daws84s.site
+  name    = "cdn.${var.zone_name}" #cdn.dsops84.space
   type    = "A"
 
   alias {
